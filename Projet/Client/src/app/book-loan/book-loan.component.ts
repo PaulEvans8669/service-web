@@ -48,7 +48,7 @@ export class BookLoanComponent implements OnInit {
     if (event.user && event.isValidated) {
       this.loanService.loan(this.loanCopyId, event.user.id)
         .pipe(
-          tap(() => this.router.navigateByUrl('/users'))
+          tap(() => this.router.navigateByUrl('/loans'))
         )
         .subscribe();
     }

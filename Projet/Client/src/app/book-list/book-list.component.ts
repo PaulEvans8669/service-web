@@ -1,12 +1,9 @@
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-
 import { Component, OnInit } from '@angular/core';
-
 import { Book } from '../model/book';
 import { BookService } from '../services/book.service';
 import { CopyService } from '../services/copy.service';
-import { Copy } from '../model/copy';
 
 @Component({
   selector: 'app-book-list',
@@ -29,12 +26,11 @@ export class BookListComponent implements OnInit {
 
   private addCopies(books: Book[]) {
     for (const book of books) {
-      book.copies = [ new Copy('', '') ];
-      // this.copyService.getAvailable(book.id)
-      //  .pipe(
-      //    map(copies => book.copies = copies)
-      //  )
-      //  .subscribe();
+      this.copyService.getAvailable(book.id)
+       .pipe(
+         map(copies => book.copies = copies)
+       )
+      .subscribe();
     }
   }
 }

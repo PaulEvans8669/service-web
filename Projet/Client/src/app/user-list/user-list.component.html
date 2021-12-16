@@ -1,0 +1,45 @@
+<button
+        class="btn btn-primary mb-3"
+        (click)="init()"
+>Refresh</button>
+<div
+        class="row"
+        *ngIf="users"
+>
+    <div class="col-1"></div>
+    <table class="col-5 table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let user of users">
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
+            <td><button class="btn btn-danger" (click)="deleteUser(user.id)">x</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="col-1"></div>
+
+    <form class="col-4" [formGroup]="userCreationForm">
+        <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="email" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="John Doe" formControlName="name" required>
+            <small id="nameHelp" class="form-text text-muted">Name of the new user</small>
+        </div>
+        <div class="form-group">
+            <label for="inputAge">Age</label>
+            <input type="number" class="form-control" id="inputAge" aria-describedby="ageHelp" formControlName="age" required>
+            <small id="ageHelp" class="form-text text-muted">Age of the new user</small>
+        </div>
+        <button type="button" class="btn btn-primary float-right"
+                [ngClass]="{'disabled': userCreationForm.status !== 'VALID'}"
+                (click)="createUser()">Ajouter</button>
+    </form>
+</div>

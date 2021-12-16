@@ -4,8 +4,7 @@ class LoanController {
     }
 
     getAll(req, res) {
-        const loans = this.loanRepository.getAll();
-        res.json(loans);
+        res.json(this.loanRepository.getAll());
     }
 
     create(req, res) {
@@ -13,7 +12,7 @@ class LoanController {
         res.location('/loans/' + loan.id);
         res.status(201).send(loan);
     }
-    
+
     get(req, res) {
         const loan = this.loanRepository.get(req.params.loanId);
         if (loan == null) {
@@ -22,12 +21,12 @@ class LoanController {
             res.status(200).send(loan);
         }
     }
-    
+
     update(req, res) {
-        const loan = this.loanRepository.update(req.params.loanId, req.body)
-        res.status(200).send(loan);
+        res.status(200)
+            .send(this.loanRepository.update(req.params.loanId, req.body));
     }
-    
+
     delete(req, res) {
         this.loanRepository.delete(req.params.loanId);
         res.status(204).send(null);

@@ -2,7 +2,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -15,20 +15,25 @@ import { UserService } from './services/user.service';
 import { UserSelectionComponent } from './user-selection/user-selection.component';
 import { BookLoanComponent } from './book-loan/book-loan.component';
 import { LoanService } from './services/loan.service';
+import { LoanListComponent } from './loan-list/loan-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookListComponent,
     BookLoanComponent,
-    UserSelectionComponent
+    UserSelectionComponent,
+    LoanListComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     NgxSmartModalModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     BookService,

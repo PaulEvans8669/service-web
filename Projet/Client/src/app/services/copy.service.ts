@@ -1,14 +1,24 @@
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
 import { Copy } from '../model/copy';
 import { BaseHttpService } from './baseHttpService';
+import {Book} from '../model/book';
 
 @Injectable()
 export class CopyService extends BaseHttpService {
-  getAvailable(bookId: string): Observable<Copy[]> {
-    /*To be implemented*/
-    return of([new Copy('myId', '2018-01-01')]);
-  }
+
+    public getCopy(bookId: string, copyId: string): Observable<Copy> {
+        return this.http
+            .get<Copy>(`${this.baseUrl}/nook/${bookId}/copies/${copyId}`);
+    }
+
+    public getAvailable(bookId: string): Observable<Copy[]> {
+        return this.http.get<Copy[]>(`${this.baseUrl}/books/${bookId}/availableCopies`);
+    }
+
+    public getBookForCopy(id: string): Observable<Book> {
+        return this.http.get<Book>(`${this.baseUrl}/copies/${id}/book`);
+    }
 }
