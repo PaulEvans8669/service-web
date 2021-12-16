@@ -2,26 +2,30 @@ const { v4: uuid } = require('uuid');
 const _ = require('lodash');
 const ValidationError = require('./validationError');
 
-const checkBook = function(book) {
-    if (!book.name) {
-        throw new ValidationError('The book must have a name.');
+const checkLoan = function(loan) {
+    const requiredFields = ['userId', 'copyId'];
+    const missingFields = requiredFields.filter(key => !Object.keys(loan).includes(key));
+    if(missingFields){
+        throw new ValidationError(
+            'The loan is missing required fields : ' + missingFields.join(', ') + '...'
+        );
     }
 }
 
-class BookRepository {
+class LoanRepository {
     constructor(db) {
         this.db = db;
     }
 
     getAll() {
-        return this.db.getData("/books");
+        return this.db.getData("/loans");
     }
 
     add(book) {
-        checkBook(book); 
+        checkLoan(book);
         book.id = uuid();
         book.copies = []; // initialize empty copy array
-        this.db.push("/books[]", book);
+        this.db.push("/loans[]", book);
 
         return book;
     }
@@ -31,20 +35,20 @@ class BookRepository {
         return _.find(books, { id });
     }
 
-    update(id, book) {
-        if (book.id !== id) {
+    update(id, loan) {
+        if (loan.id !== id) {
             throw new ValidationError('You cannot change the identifier.');
         }
 
-        checkBook(book); 
+        checkLoan(loan);
         const path = this.getIdPath(id);
         if (path == null) {
-            throw new ValidationError('This book does not exists');
+            throw new ValidationError('This loan does not exists');
         }
 
-        this.db.push(path, book);
+        this.db.push(path, loan);
 
-        return book;
+        return loan;
     }
 
     delete(id) {
@@ -56,14 +60,14 @@ class BookRepository {
     }
 
     getIdPath(id) {
-        const books = this.getAll();
-        const index = _.findIndex(books, { id });
+        const loans = this.getAll();
+        const index = _.findIndex(loans, { id });
         if (index === -1) {
             return null;
         }
 
-        return '/books[' + index + ']';
+        return '/loans[' + index + ']';
     }
 }
 
-module.exports = BookRepository;
+module.exports = LoanRepository;

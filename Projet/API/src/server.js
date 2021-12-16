@@ -6,11 +6,14 @@ const bodyParser = require('body-parser');
 
 // Import de nos objets
 const bookRoutes = require('./api/routes/bookRoutes');
+const loanRoutes = require('./api/routes/loanRoutes');
 const userRoutes = require('./api/routes/userRoutes');
 
 const BookController = require('./api/controllers/bookController');
+const LoanController = require('./api/controllers/loanController');
 
 const BookRepository = require('./repositories/bookRepository');
+const LoanRepository = require('./repositories/loanRepository');
 
 // Création de nos objets
 const db = new JsonDB("./data/library", true, true);
