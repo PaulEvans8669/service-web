@@ -1,0 +1,14 @@
+services:
+  api:
+    container_name: web-api
+    build: ./API
+    ports:
+      - '3000:3000'
+    command: npm run start
+  client:
+    container_name: web-client
+    build: ./Client
+    ports:
+      - '8080:80'
+    depends_on:
+      - api
