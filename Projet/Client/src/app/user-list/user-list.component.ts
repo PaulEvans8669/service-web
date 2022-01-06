@@ -15,7 +15,7 @@ export class UserListComponent implements OnInit {
 
   public userCreationForm = this.fb.group({
     name: ['', Validators.required],
-    age: ['', Validators.required],
+    age: ['', [Validators.required, Validators.min(0)]],
   });
 
   constructor(private userService: UserService,
@@ -30,12 +30,16 @@ export class UserListComponent implements OnInit {
   }
 
   public createUser() {
-    const formData: UserCreationDto = this.userCreationForm.value;
-    this.userService.create(formData)
-        .pipe(first())
-        .subscribe((user) => {
-          this.users = [...this.users, user];
-        });
+    if (this.userCreationForm.valid) {
+      const formData: UserCreationDto = this.userCreationForm.value;
+      this.userService.create(formData)
+          .pipe(first())
+          .subscribe((user) => {
+            this.users = [...this.users, user];
+          });
+    } else {
+      console.log(this.userCreationForm.errors);
+    }
   }
 
   deleteUser(id: string) {
