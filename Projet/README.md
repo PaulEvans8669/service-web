@@ -3,8 +3,8 @@
 ---
 ### Composition du groupe
 
-- **Evans Paul**
-- **Sallou Theo**
+- **Evans Paul : paul.evans@etu.univ-nantes.fr**
+- **Sallou Theo : theo.sallou@etu.univ-nantes.fr**
 
 ---
 
@@ -20,8 +20,8 @@ A exécuter à la racine du projet (au niveau du fichier `docker-compose.yaml`)
 docker-compose up
 ```
 
-L'API est accessible à l'adresse *[localhost:3000](http://www.localhost:3000)*
-Le site est accessible à l'adresse *[localhost:8080](http://www.localhost:8080)*
+L'API est accessible à l'adresse *[localhost:3000](http://www.localhost:3000)*  
+Le site est accessible à l'adresse *[localhost:8080](http://www.localhost:8080)* (Note : le client est distribué sur un serveur nginx)
 
 ### Manuellement
 
